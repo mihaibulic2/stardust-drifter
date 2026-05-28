@@ -73,6 +73,17 @@ Frame loop: `input -> core.step -> view.syncFromState -> hud/pixl.update -> audi
 - `docs/03-architecture.md` — module map & data flow
 - `docs/04-game-systems.md` — exact rules the core implements & tests verify
 
+## Verification
+
+- `npm test` — the pure-core unit suite (66 specs, all green).
+- `scripts/smoke.mjs` — an optional end-to-end browser check that loads the built
+  game in headless Chromium, plays through the intro, fights, fires a missile,
+  pauses/resumes and asserts zero runtime errors. It needs Playwright:
+  `npm i -D playwright && npx playwright install chromium`, then
+  `npm run build && npm run preview -- --port 4173` in one shell and
+  `node scripts/smoke.mjs` in another. (Headless Chromium throttles rAF to ~4fps,
+  so the script gates on an in-page frame counter — not wall-clock.)
+
 ## Status
 
 v1: 5 sectors, lives/score/combo/levels/power-ups, story, start/pause/win/gameover
